@@ -1,0 +1,15 @@
+{
+  "name": "cdn-webpack-plugin",
+  "version": "1.0.0",
+  "description": "A webpack plugin to put bundles in a CDN",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cdn",
+    "webpack-plugin"
+  ],
+  "author": "Daker",
+  "license": "MIT"
+}
