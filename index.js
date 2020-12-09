@@ -19,9 +19,9 @@ class CDNWebpackPlugin {
   apply(compiler) {
     // 不同版本的插件系统有差异，需要具体注册
 
-    // compiler.hooks.afterEmit.tapAsync
-    if (compiler.hooks && compiler.hooks.afterEmit && compiler.hooks.afterEmit.tapAsync) {
-      return compiler.hooks.afterEmit.tapAsync('CDNWebpackPlugin', async (compilation, callback) => {
+    // compiler.hooks.emit.tapAsync
+    if (compiler.hooks && compiler.hooks.emit && compiler.hooks.emit.tapAsync) {
+      return compiler.hooks.emit.tapAsync('CDNWebpackPlugin', async (compilation, callback) => {
         await this.uploadAdaptor(compilation);
         callback();
       });
@@ -42,9 +42,12 @@ class CDNWebpackPlugin {
   async uploadAdaptor(compilation) {
     const { getPath } = this.options;
     const assets = [];
+    let hash = compilation.hash;
 
     // 不同版本对于assets的获取也不太一样
     if (/^5\./.test(version)) {
+      // 5.x hash要被废弃了，改用 fullHash
+      hash = compilation.fullHash;
       // webpack 5+
       compilation.chunks.forEach((chunk) => {
         const chunkFiles = Array.from(chunk.files);
@@ -59,8 +62,8 @@ class CDNWebpackPlugin {
 
         assets.push(...chunkAssets);
       });
-    } else if (!version) {
-      // 老版本没有version属性，3.x
+    } else {
+      // 老版本没有version属性，3.x 和 4.x 获取资源的方法都一样
       const filenames = Object.keys(compilation.assets);
       const _assets = filenames.map((filename) => {
         const asset = compilation.assets[filename];
@@ -74,7 +77,7 @@ class CDNWebpackPlugin {
       assets.push(..._assets);
     }
 
-    await this.assetsProcess(assets, getPath(compilation.hash));
+    await this.assetsProcess(assets, getPath(hash));
   }
 
   /**
@@ -86,6 +89,7 @@ class CDNWebpackPlugin {
    */
   async assetsProcess(assets, path) {
     console.log('[CDN Webpack Plugin] Start uploading assets.');
+    console.log(`[CDN Webpack Plugin] webpack@${version || 'unknown'}`);
     const { uploadToCOS } = this.options;
     let processor = () => {};
     let processName = '';

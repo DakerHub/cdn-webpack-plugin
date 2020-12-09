@@ -70,6 +70,8 @@ The below versions of webpack are working fine with this plugin (at least in my 
 
 - v3.6.0
 - v3.11.0
+- v4.44.0
+- v5.10.0
 
 ## Contribute
 
