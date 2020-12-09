@@ -76,3 +76,7 @@ The below versions of webpack are working fine with this plugin (at least in my 
 ## Contribute
 
 If you find out some problems with your project, please let me know! Any issues and PRs are welcome!
+
+## License
+
+[MIT](./LICENSE)
