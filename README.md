@@ -33,8 +33,8 @@ We need to add some options in your `webpack.config.js` or other config files ( 
 
 ### output.publicPath
 
-This option is important. It'll affect all your static assets's references.
-After build, the asset's url in your html will be something like this:
+This option is important. It'll affect all your static assets' references.
+After the build, the asset's URL in your HTML will be something like this:
 
 ```html
 <script type="text/javascript" src="https://cdn.example.com/test/8565fe7e1364113022be/filename.js"></script>
@@ -42,7 +42,7 @@ After build, the asset's url in your html will be something like this:
 
 ### plugin
 
-Like other plugins. You just need to pass some options to `CDNWebpackPlugin`.
+Like other plugins, you just need to pass some options to `CDNWebpackPlugin`.
 
 ## Options
 
@@ -56,21 +56,21 @@ When I set `output.publicPath` to `https://cdn.example.com/some/path`. My plugin
 
 `uploadToCOS: (fileKey, file) => Promise`
 
-This can be a upload function or a build-in upload method name. When plugin collects all the assets, we need to upload them to COS one by one. This option offers a way to upload your assets regardless of which COS you are using.
+This can be an upload function or a build-in upload method name. When the plugin collects all the assets, we need to upload them to COS one by one. This option offers a way to upload your assets regardless of which COS you are using.
 
 We have only one build-in upload method now. It's `tencentcloud`.
 
-If you want to use this build-in method, you should set some env varibles.
+If you want to use this build-in method, you should set some env variables.
 
 `TencentCOSSecret, TencentCOSKey, TencentCOSRegion, TencentCOSBucket`
 
 ## Tested version
 
-These below versions of webpack are working fine with this plugin (at least in my case).
+The below versions of webpack are working fine with this plugin (at least in my case).
 
 - v3.6.0
 - v3.11.0
 
 ## Contribute
 
-If you find out some problems with your project, please let me know! Issues and PRs are welcome!
+If you find out some problems with your project, please let me know! Any issues and PRs are welcome!
