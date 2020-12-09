@@ -1,19 +1,19 @@
-# cdn-webpack-plugin
+# better-cdn-webpack-plugin
 
 A webpack plugin to upload assets for CDN automatically when building your app.
 
 ## Install
 
 ```sh
-npm install -D cdn-webpack-plugin
+npm install -D better-cdn-webpack-plugin
 # or
-yarn add -D cdn-webpack-plugin
+yarn add -D better-cdn-webpack-plugin
 ```
 
 ## Usage
 
 ```js
-const CDNWebpackPlugin = require('cdn-webpack-plugin');
+const CDNWebpackPlugin = require('better-cdn-webpack-plugin');
 
 module.exports = {
   output: {

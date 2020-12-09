@@ -1,6 +1,7 @@
 {
-  "name": "cdn-webpack-plugin",
+  "name": "better-cdn-webpack-plugin",
   "version": "1.0.0",
+  "private": false,
   "description": "A webpack plugin to put bundles in a CDN",
   "main": "index.js",
   "scripts": {
