@@ -7,6 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --config example/webpack.config.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DakerHub/cdn-webpack-plugin.git"
+  },
+  "homepage": "https://github.com/DakerHub/cdn-webpack-plugin",
   "keywords": [
     "cdn",
     "webpack-plugin"
