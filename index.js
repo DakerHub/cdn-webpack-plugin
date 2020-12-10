@@ -11,7 +11,7 @@ class CDNWebpackPlugin {
   constructor(options) {
     const defaultOptions = {
       uploadToCOS: 'tencentcloud',
-      getPath: (hash) => hash,
+      getPath: () => '',
     };
 
     this.options = Object.assign(defaultOptions, options);
@@ -42,12 +42,8 @@ class CDNWebpackPlugin {
   async uploadAdaptor(compilation) {
     const { getPath } = this.options;
     const assets = [];
-    let hash = compilation.hash;
-
     // 不同版本对于assets的获取也不太一样
     if (/^5\./.test(version)) {
-      // 5.x hash要被废弃了，改用 fullHash
-      hash = compilation.fullHash;
       // webpack 5+
       compilation.chunks.forEach((chunk) => {
         const chunkFiles = Array.from(chunk.files);
@@ -77,7 +73,7 @@ class CDNWebpackPlugin {
       assets.push(..._assets);
     }
 
-    await this.assetsProcess(assets, getPath(hash));
+    await this.assetsProcess(assets, getPath());
   }
 
   /**

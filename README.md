@@ -18,11 +18,11 @@ const CDNWebpackPlugin = require('better-cdn-webpack-plugin');
 module.exports = {
   output: {
     // ...
-    publicPath: 'https://cdn.example.com/test/[hash]',
+    publicPath: 'https://cdn.example.com/your/path',
   },
   plugins: [
     new CDNWebpackPlugin({
-      getPath: (hash) => `test/${hash}`,
+      getPath: () => 'your/path',
       uploadToCOS: 'tencentcloud',
     }),
   ],
