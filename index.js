@@ -99,23 +99,26 @@ class CDNWebpackPlugin {
     }
 
     let errorCount = 0;
+    let errorList = [];
     const requests = assets.map((asset) => {
       const fileKey = `${path}/${asset.filename}`;
 
-      return processor(fileKey, asset.source)
-        .then((res) => {
-          console.log(`[${processName}] `.blue + fileKey.white, 'done'.green);
-          return res;
-        })
-        .catch((err) => {
-          errorCount++;
-          console.log(`[${processName}] `.blue + fileKey.white, 'fail'.red);
-          return err;
+      return processor(fileKey, asset.source).catch((err) => {
+        errorCount++;
+        errorList.push({
+          fileKey: fileKey,
+          err: err,
         });
+        return err;
+      });
     });
 
     await Promise.all(requests);
     if (errorCount) {
+      errorList.forEach((item) => {
+        console.log(`[${processName}] `.blue + item.fileKey.white, 'fail'.red);
+        console.log(item.err);
+      });
       console.log(`[CDN Webpack Plugin] ${errorCount} asset(s) uploaded failed.`.red);
     } else {
       console.log('[CDN Webpack Plugin] All assets uploaded.'.green);

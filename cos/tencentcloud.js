@@ -1,6 +1,15 @@
 const COS = require('cos-nodejs-sdk-v5');
 
 const { TencentCOSSecret, TencentCOSKey, TencentCOSRegion, TencentCOSBucket } = process.env;
+
+const envs = ['TencentCOSSecret', 'TencentCOSKey', 'TencentCOSRegion', 'TencentCOSBucket'];
+
+envs.forEach((param) => {
+  if (!process.env[param]) {
+    console.error(`[tencentcloud cos] missing env ${param}`);
+  }
+});
+
 const cos = new COS({
   SecretId: TencentCOSSecret,
   SecretKey: TencentCOSKey,
