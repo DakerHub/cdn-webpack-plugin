@@ -1,21 +1,23 @@
 const COS = require('cos-nodejs-sdk-v5');
 
-const { TencentCOSSecret, TencentCOSKey, TencentCOSRegion, TencentCOSBucket } = process.env;
-
-const envs = ['TencentCOSSecret', 'TencentCOSKey', 'TencentCOSRegion', 'TencentCOSBucket'];
-
-envs.forEach((param) => {
-  if (!process.env[param]) {
-    console.error(`[tencentcloud cos] missing env ${param}`);
-  }
-});
-
-const cos = new COS({
-  SecretId: TencentCOSSecret,
-  SecretKey: TencentCOSKey,
-});
+let cos = null;
 
 module.exports = async function (fileKey, file) {
+  const { TencentCOSSecret, TencentCOSKey, TencentCOSRegion, TencentCOSBucket } = process.env;
+  if (!cos) {
+    const envs = ['TencentCOSSecret', 'TencentCOSKey', 'TencentCOSRegion', 'TencentCOSBucket'];
+
+    envs.forEach((param) => {
+      if (!process.env[param]) {
+        console.error(`[tencentcloud cos] missing env ${param}`);
+      }
+    });
+    cos = new COS({
+      SecretId: TencentCOSSecret,
+      SecretKey: TencentCOSKey,
+    });
+  }
+
   return new Promise((resolve, reject) => {
     cos.putObject(
       {
