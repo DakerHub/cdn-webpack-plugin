@@ -64,9 +64,16 @@ class CDNWebpackPlugin {
       const _assets = filenames.map((filename) => {
         const asset = compilation.assets[filename];
 
+        let source = null;
+        if (asset._value) {
+          source = asset._value;
+        } else {
+          source = fs.createReadStream(asset.existsAt);
+        }
+
         return {
           filename: filename,
-          source: fs.createReadStream(asset.existsAt),
+          source: source,
         };
       });
 

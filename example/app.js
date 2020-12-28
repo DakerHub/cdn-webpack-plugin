@@ -1,3 +1,3 @@
-var a = 2;
+var a = Math.random();
 
 console.log(a);
